@@ -1,5 +1,5 @@
-import { BaseRouter } from "./router";
-import { UserController } from "../controllers/user.controller";
+import { BaseRouter } from "../router/router";
+import { UserController } from "./controllers/user.controller";
 export class UserRouter extends BaseRouter<UserController> {
   constructor() {
     super(UserController);
@@ -8,6 +8,5 @@ export class UserRouter extends BaseRouter<UserController> {
   routes(): void {
     this.router.get("/", (req, res) => this.controller.getUsers(req, res));
    
-
   }
 }
