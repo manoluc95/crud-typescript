@@ -1,5 +1,5 @@
 import * as dotenv from "dotenv";
-import { ConnectionOptions } from "typeorm";
+import { Connection, ConnectionOptions, createConnection } from "typeorm";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
 export abstract class ConfigServer {
@@ -32,6 +32,14 @@ export abstract class ConfigServer {
     return "." + arrEnv.join(".");
   }
 
+  //   DB_PORT=3312
+  // DB_HOST=localhost
+  // DB_DATABASE=codrr_db
+  // DB_USER=ucodrr
+  // DB_PASSWORD=secret
+
+  //userName => user_name
+
   public get typeORMConfig(): ConnectionOptions {
     return {
       type: "mysql",
@@ -47,5 +55,15 @@ export abstract class ConfigServer {
       namingStrategy: new SnakeNamingStrategy(),
     };
   }
-}
 
+  async dbConnect(): Promise<Connection> {
+    try {
+      const connection = await createConnection(this.typeORMConfig);
+      console.log("Conexión exitosa a la base de datos mysql");
+      return connection;
+    } catch (error) {
+      console.error("Error al conectar a la base de datos:", error);
+      throw error; // Puedes lanzar el error nuevamente o manejarlo según tus necesidades.
+    }
+  }
+}

@@ -4,7 +4,6 @@ import cors from "cors";
 import path from "path";
 import { UserRouter } from "./user/user.router";
 import { ConfigServer } from "./config/config";
-import { Connection, createConnection } from "typeorm";
 
 class ServerBootstrap extends ConfigServer {
   public app: express.Application = express();
@@ -32,16 +31,6 @@ class ServerBootstrap extends ConfigServer {
     return [new UserRouter().router];
   }
 
-  async dbConnect(): Promise<Connection> {
-    try {
-      const connection = await createConnection(this.typeORMConfig);
-      console.log('Conexión exitosa a la base de datos.');
-      return connection;
-    } catch (error) {
-      console.error('Error al conectar a la base de datos:', error);
-      throw error; // Puedes lanzar el error nuevamente o manejarlo según tus necesidades.
-    }
-  }
 
   public listen() {
     this.app.listen(this.port, () => {

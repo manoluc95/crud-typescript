@@ -2,7 +2,6 @@ import { Column, Entity, OneToOne } from "typeorm";
 import { BaseEntity } from "../../config/base.entity";
 import { CustomerEntity } from "../../customer/customer.entity";
 
-
 @Entity({ name: "users" })
 export class UserEntity extends BaseEntity {
   @Column()
@@ -17,7 +16,7 @@ export class UserEntity extends BaseEntity {
   @Column()
   email!: string;
 
-  @Column()
+  @Column({ select: false })
   password!: string;
 
   @Column()

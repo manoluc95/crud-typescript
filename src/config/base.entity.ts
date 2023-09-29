@@ -1,27 +1,27 @@
-  //id
-  //created_ad
-  //updated_ad
-
 import {
-    CreateDateColumn,
-    PrimaryGeneratedColumn,
-    UpdateDateColumn,
-  } from "typeorm";
-  
-  export abstract class BaseEntity {
-    @PrimaryGeneratedColumn("uuid")
-    id!: string;
-  
-    @CreateDateColumn({
-      name: "created_ad",
-      type: "timestamp",
-    })
-    createdAd!: Date;
-  
-    @UpdateDateColumn({
-      name: "updated_ad",
-      type: "timestamp",
-    })
-    updatedAt!: Date;
-  }
+  CreateDateColumn,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm";
+
+export abstract class BaseEntity {
+  @PrimaryGeneratedColumn("uuid")
+  id?: string;
+
+  @CreateDateColumn({
+    name: "created_at",
+    type: "timestamp",
+  })
+  createdAt!: Date;
+
+  @UpdateDateColumn({
+    name: "updated_at",
+    type: "timestamp",
+  })
+  updatedAt!: Date;
+}
+
+//id
+//created_at
+//updated_at
   
