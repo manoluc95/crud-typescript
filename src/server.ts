@@ -1,9 +1,11 @@
+import "reflect-metadata";
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import path from "path";
 import { UserRouter } from "./user/user.router";
 import { ConfigServer } from "./config/config";
+import { DataSource } from "typeorm";
 
 class ServerBootstrap extends ConfigServer {
   public app: express.Application = express();
@@ -31,6 +33,15 @@ class ServerBootstrap extends ConfigServer {
     return [new UserRouter().router];
   }
 
+  async dbConnect(): Promise<DataSource | void> {
+    return this.initConnect
+      .then(() => {
+        console.log("Connect db Success");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
 
   public listen() {
     this.app.listen(this.port, () => {
@@ -40,4 +51,3 @@ class ServerBootstrap extends ConfigServer {
 }
 
 new ServerBootstrap();
-

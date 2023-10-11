@@ -28,13 +28,41 @@ npm install -D @types/cors @types/express @types/morgan concurrently nodemon
 ```
 # Comandos para docker compose
 docker-compose up
+
 docker ps 
+
 docker exec -it NOMBRE_DEL_CONTENEDOR_MYSQL mysql -u USUARIO -p
+
 utilizo comandos de mysql
+
 SHOW DATABASES;
+
 USE NOMBRE_DE_LA_BASE_DE_DATOS;
+
 SHOW TABLES; 
+
 SHOW COLUMNS FROM nombre_de_la_tabla;
+
+# Configuración para utilizar migraciones (clase 6)
+```
+npm install reflect-metadata
+```
+```
+npm install -D ts-node
+```
+
+En package.json creo los siguientes script:
+- "typeorm": "typeorm-ts-node-esm -d ./src/config/data.source.ts",
+- "m:gen": "npm run typeorm migration:generate",
+- "m:run": "npm run typeorm migration:run"
+
+Para correr las migraciones:
+```
+npm run m:gen -- src/migrations/ChangeUser
+```
+```
+npm run m:run
+```
 # Clases:
 
 METODOS:
@@ -85,4 +113,15 @@ METODOS:
 | **Entidad** | <span style="color: #94fc03">PRACTICO</span> | Products: Creacion de entidad y relaciones                                          |
 | **Entidad** | <span style="color: #94fc03">PRACTICO</span> | Categories: Creacion de entidad y relaciones                                        |
 | **Entidad** | <span style="color: #94fc03">PRACTICO</span> | Purchases: Creacion de entidad y relaciones                                         |
-| **Entidad** | <span style="color: #94fc03">PRACTICO</span> | `purchases_products`: Creacion de entidad N:N custom y relaciones                   |
+| **Entidad** | <span style="color: #94fc03">PRACTICO</span> | `purchases_products`: Creacion de entidad N:N custom y relaciones            
+
+| CLASE 6         | Metodo                                                 | Contenido                                                               |
+| --------------- | ------------------------------------------------------ | ----------------------------------------------------------------------- |
+
+| **Servicio**    | <span style="color: #fc7b03">TEORICO / PRACTICO</span> | Que son y para que sirven los servicios                                 |
+| **Servicio**    | <span style="color: #94fc03">PRACTICO</span>           | Instanciando metodos desplegados con funcion de repositorio con TypeORM |
+| **Servicio**    | <span style="color: #94fc03">PRACTICO</span>           | Creacion de `findAll` `findById` `create` `update` `delete`             |
+| **Controlador** | <span style="color: #94fc03">PRACTICO</span>           | Integracion de metodos instanciando servicios con los controladores     |
+
+
+                            |       |

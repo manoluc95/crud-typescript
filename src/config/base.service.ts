@@ -10,7 +10,8 @@ export class BaseService<T extends BaseEntity> extends ConfigServer {
   }
 
   async initRepository(e: EntityTarget<T>): Promise<Repository<T>> {
-    const getConn = await this.dbConnect();
+    // const getConn = await this.dbConnect();
+    const getConn = await this.initConnect;
     return getConn.getRepository(e);
   }
 }

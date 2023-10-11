@@ -1,6 +1,7 @@
 import * as dotenv from "dotenv";
-import { Connection, ConnectionOptions, createConnection } from "typeorm";
+import { Connection, ConnectionOptions, DataSource, createConnection } from "typeorm";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
+import { AppDataSource } from "./data.source";
 
 export abstract class ConfigServer {
   constructor() {
@@ -23,7 +24,7 @@ export abstract class ConfigServer {
   }
 
   public createPathEnv(path: string): string {
-    const arrEnv: Array<string> = ["env"]; //['hola', 'mundo'] => 'hola.mundo'
+    const arrEnv: Array<string> = ["env"]; 
 
     if (path.length > 0) {
       const stringToArray = path.split(".");
@@ -32,38 +33,11 @@ export abstract class ConfigServer {
     return "." + arrEnv.join(".");
   }
 
-  //   DB_PORT=3312
-  // DB_HOST=localhost
-  // DB_DATABASE=codrr_db
-  // DB_USER=ucodrr
-  // DB_PASSWORD=secret
 
-  //userName => user_name
 
-  public get typeORMConfig(): ConnectionOptions {
-    return {
-      type: "mysql",
-      host: this.getEnvironment("DB_HOST"),
-      port: this.getNumberEnv("DB_PORT"),
-      username: this.getEnvironment("DB_USER"),
-      password: this.getEnvironment("DB_PASSWORD"),
-      database: this.getEnvironment("DB_DATABASE"),
-      entities: [__dirname + "/../**/*.entity{.ts,.js}"],
-      migrations: [__dirname + "/../../migrations/*{.ts,.js}"],
-      synchronize: true,
-      logging: false,
-      namingStrategy: new SnakeNamingStrategy(),
-    };
-  }
-
-  async dbConnect(): Promise<Connection> {
-    try {
-      const connection = await createConnection(this.typeORMConfig);
-      console.log("Conexión exitosa a la base de datos mysql");
-      return connection;
-    } catch (error) {
-      console.error("Error al conectar a la base de datos:", error);
-      throw error; // Puedes lanzar el error nuevamente o manejarlo según tus necesidades.
-    }
+  get initConnect(): Promise<DataSource> {
+    
+      return AppDataSource.initialize();
+   
   }
 }
