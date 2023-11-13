@@ -16,7 +16,7 @@ export class UserController {
         return this.httpResponse.NotFound(res, "No existe el datos");
       }
       // this.httpResponse.Ok(res, users);
-      res.render("users", { users });
+      res.render("user", { users, search: false });
     } catch (e) {
       return this.httpResponse.Error(res, e);
     }
@@ -34,7 +34,7 @@ export class UserController {
         return this.httpResponse.NotFound(res, "No existe datos");
       }
       // return this.httpResponse.Ok(res, data);
-      return res.render("edit", {
+      return res.render("user/edit", {
         user: data,
       });
     } catch (e) {
@@ -47,7 +47,7 @@ export class UserController {
     try {
       const data = await this.userService.createUser(req.body);
       // return this.httpResponse.Ok(res, data);
-      res.render("index");
+      res.render("user/index");
     } catch (e) {
       return this.httpResponse.Error(res, e);
     }
@@ -60,7 +60,7 @@ export class UserController {
 
     try {
       const users = await this.userService.search(search);
-      res.render("search", {
+      res.render("user/search", {
         users: users,
         search: search
       });
@@ -98,7 +98,7 @@ export class UserController {
         return this.httpResponse.NotFound(res, "Error al eliminar");
       }
       // return this.httpResponse.Ok(res, data);
-      res.render("index");
+      res.render("user/");
     } catch (e) {
       return this.httpResponse.Error(res, e);
     }

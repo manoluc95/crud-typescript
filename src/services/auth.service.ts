@@ -2,7 +2,7 @@ import { ConfigServer } from "../../config/config";
 // import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
 import { UserService } from "../../user/services/user.service";
-import { UserEntity } from "../../user/entities/user.entity";
+import { UserEntity } from "../../entities/user.entity";
 // import { PayloadToken } from "../interfaces/auth.interface";
 
 export class AuthService extends ConfigServer {

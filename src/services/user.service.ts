@@ -1,7 +1,7 @@
 import { DeleteResult, UpdateResult } from "typeorm";
 import { BaseService } from "../../config/base.service";
 import { UserDTO } from "../dto/user.dto";
-import { UserEntity } from "../entities/user.entity";
+import { UserEntity } from "../../entities/user.entity";
 import * as bcrypt from "bcrypt";
 export class UserService extends BaseService<UserEntity> {
   constructor() {
