@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { UserService } from "../services/user.service";
-import { HttpResponse } from "../../shared/response/http.response";
+import { HttpResponse } from "../shared/response/http.response";
 import { DeleteResult, UpdateResult } from "typeorm";
 
 export class UserController {
@@ -9,12 +9,9 @@ export class UserController {
     private readonly httpResponse: HttpResponse = new HttpResponse()
   ) {}
 
-  async getUsers(req: Request, res: Response) {
+  async get(req: Request, res: Response) {
     try {
       const users = await this.userService.findAllUser();
-      if (users.length === 0) {
-        return this.httpResponse.NotFound(res, "No existe el datos");
-      }
       // this.httpResponse.Ok(res, users);
       res.render("user", { users, search: false });
     } catch (e) {
@@ -22,9 +19,7 @@ export class UserController {
     }
   }
 
-
-
-  async getUserById(req: Request, res: Response) {
+  async getById(req: Request, res: Response) {
     let { id } = req.query;
     id = id?.toString() || "";
 
@@ -34,7 +29,7 @@ export class UserController {
         return this.httpResponse.NotFound(res, "No existe datos");
       }
       // return this.httpResponse.Ok(res, data);
-      return res.render("user/edit", {
+      res.render("user/edit", {
         user: data,
       });
     } catch (e) {
@@ -43,11 +38,11 @@ export class UserController {
     }
   }
 
-  async createUser(req: Request, res: Response) {
+  async create(req: Request, res: Response) {
     try {
       const data = await this.userService.createUser(req.body);
       // return this.httpResponse.Ok(res, data);
-      res.render("user/index");
+      res.redirect("/user");
     } catch (e) {
       return this.httpResponse.Error(res, e);
     }
@@ -71,7 +66,7 @@ export class UserController {
     }
   }
 
-  async updateUser(req: Request, res: Response) {
+  async update(req: Request, res: Response) {
     // const { id } = req.params;
     const { id } = req.body;
 
@@ -83,12 +78,14 @@ export class UserController {
       if (!data.affected) {
         return this.httpResponse.NotFound(res, "Error al actualizar");
       }
-      return this.httpResponse.Ok(res, data);
+      res.render("user/", {
+        search: false
+      });
     } catch (e) {
       return this.httpResponse.Error(res, e);
     }
   }
-  async deleteUser(req: Request, res: Response) {
+  async delete(req: Request, res: Response) {
     // const { id } = req.params;
     const { id } = req.body;
 
@@ -98,7 +95,7 @@ export class UserController {
         return this.httpResponse.NotFound(res, "Error al eliminar");
       }
       // return this.httpResponse.Ok(res, data);
-      res.render("user/");
+      res.redirect("/user");
     } catch (e) {
       return this.httpResponse.Error(res, e);
     }
