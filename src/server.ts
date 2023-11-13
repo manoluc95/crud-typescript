@@ -3,7 +3,8 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import path from "path";
-import { UserRouter } from "./user/user.router";
+import { UserRouter } from "./routes/user.router";
+import { HomeRouter } from "./routes/home.router";
 import { ConfigServer } from "./config/config";
 import { DataSource } from "typeorm";
 
@@ -13,6 +14,8 @@ class ServerBootstrap extends ConfigServer {
 
   constructor() {
     super();
+
+
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(morgan("dev"));
@@ -22,15 +25,13 @@ class ServerBootstrap extends ConfigServer {
     this.app.set("view engine", "ejs");
     this.app.set("views", path.join(__dirname, "..", "views"));
     this.app.use(express.static(path.join(__dirname, "..", "public")));
+
     // ruter
-    this.app.use("/", this.routers());
+    this.app.use("/", new HomeRouter().router);
+    this.app.use("/user", new UserRouter().router);
 
     this.dbConnect();
     this.listen();
-  }
-
-  routers(): Array<express.Router> {
-    return [new UserRouter().router];
   }
 
   async dbConnect(): Promise<DataSource | void> {
