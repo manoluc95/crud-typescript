@@ -52,16 +52,12 @@ export class UserController {
     let { search } = req.query;
     search = search?.toString() || "";
 
-
     try {
       const users = await this.userService.search(search);
-      res.render("user/search", {
-        users: users,
-        search: search
-      });
+      res.render("user", { users, search: search });
     } catch (err) {
       res.render("message", {
-        message: `Erro ao buscar usuário:`
+        message: `Error al buscar el usuario: ${search}`
       });
     }
   }
