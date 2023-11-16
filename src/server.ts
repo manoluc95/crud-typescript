@@ -3,6 +3,9 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import path from "path";
+import session from "express-session";
+import flash from "connect-flash";
+import passport from "passport";
 import { UserRouter } from "./routes/user.router";
 import { HomeRouter } from "./routes/home.router";
 import { ConfigServer } from "./config/config";
@@ -15,11 +18,29 @@ class ServerBootstrap extends ConfigServer {
   constructor() {
     super();
 
-
+    // Middleware
+    this.app.use(session({  // Configuro el guardado de seción
+      secret: this.getEnvironment("SECRET") ?? "ASDFasdf1234",
+      resave: false,
+      saveUninitialized: false
+    }));
+    this.app.use(flash());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(morgan("dev"));
     this.app.use(cors());
+    this.app.use(passport.initialize());
+    this.app.use(passport.session());
+
+    require('./config/passport')
+
+    this.app.use((req, res, next) => {
+      this.app.locals.message = req.flash('message');
+      this.app.locals.success = req.flash('success');
+
+      this.app.locals.login_user = req.user;
+      next();
+    });
 
     // Establece EJS como el motor de vistas
     this.app.set("view engine", "ejs");
