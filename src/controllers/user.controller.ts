@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { UserService } from "../services/user.service";
+import { UserService, userServiceSingleton } from "../services/user.service";
 import { HttpResponse } from "../shared/response/http.response";
 import { DeleteResult, UpdateResult } from "typeorm";
 
 export class UserController {
   constructor(
-    private readonly userService: UserService = new UserService(),
+    public readonly userService: UserService = userServiceSingleton,
     private readonly httpResponse: HttpResponse = new HttpResponse()
   ) {}
 

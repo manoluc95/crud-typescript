@@ -1,13 +1,12 @@
-import { ConfigServer } from "../../config/config";
-// import * as jwt from "jsonwebtoken";
+import { ConfigServer } from "../config/config";
 import * as bcrypt from "bcrypt";
-import { UserService } from "../../user/services/user.service";
-import { UserEntity } from "../../entities/user.entity";
+import { UserService, userServiceSingleton } from "./user.service";
+import { UserEntity } from "../entities/user.entity";
 // import { PayloadToken } from "../interfaces/auth.interface";
 
 export class AuthService extends ConfigServer {
   constructor(
-    private readonly userService: UserService = new UserService(),
+    private readonly userService: UserService = userServiceSingleton,
     // private readonly jwtInstance = jwt
   ) {
     super();

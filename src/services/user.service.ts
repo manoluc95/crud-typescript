@@ -1,10 +1,13 @@
-import { DeleteResult, UpdateResult } from "typeorm";
-import { BaseService } from "../../config/base.service";
+import {DataSource, DataSourceOptions, DeleteResult, UpdateResult} from "typeorm";
+import { BaseService } from "../config/base.service";
 import { UserDTO } from "../dto/user.dto";
-import { UserEntity } from "../../entities/user.entity";
-import * as bcrypt from "bcrypt";
+import { UserEntity } from "../entities/user.entity";
+import { Helpers } from "../config/helper";
+
 export class UserService extends BaseService<UserEntity> {
-  constructor() {
+  private static instance: UserService;
+
+  private constructor() {
     super(UserEntity);
   }
 
@@ -18,7 +21,7 @@ export class UserService extends BaseService<UserEntity> {
 
   async search(search: string) {
     if (!search) {
-      throw new Error("Por favor preencha o campo de busca");
+      throw new Error("Por favor enviar el dato search");
     }
     const user = (await this.execRepository)
       .createQueryBuilder()
@@ -26,7 +29,7 @@ export class UserService extends BaseService<UserEntity> {
       .orWhere("email like :search", { search: `%${search}%` })
       .orWhere("name like :search", { search: `%${search}%` })
       .orWhere("city like :search", { search: `%${search}%` })
-      .orWhere("province like :search", { search: `%${search}%` })
+      .orWhere("state like :search", { search: `%${search}%` })
       .getMany();
 
     return user;
@@ -49,8 +52,7 @@ export class UserService extends BaseService<UserEntity> {
 
   async createUser(body: UserDTO): Promise<UserEntity> {
     const newUser = (await this.execRepository).create(body);
-    const hashPass = await bcrypt.hash(newUser.password, 10);
-    newUser.password = hashPass;
+    newUser.password = await Helpers.encryptPassword(newUser.password);
     return (await this.execRepository).save(newUser);
   }
 
@@ -69,4 +71,10 @@ export class UserService extends BaseService<UserEntity> {
       .where({ id })
       .getOne();
   }
+
+  public static getInstance(): UserService {
+    return !UserService.instance ? new UserService() : UserService.instance;
+  }
 }
+
+export const userServiceSingleton = UserService.getInstance()
