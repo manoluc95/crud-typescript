@@ -27,14 +27,23 @@ Dependencias de desarrollo necesarias:
 npm install -D @types/cors @types/express @types/morgan concurrently nodemon
 ```
 # Comandos para docker compose
-docker-compose up
+``` sh
+docker-compose up -d
 
 docker ps 
 
 docker exec -it NOMBRE_DEL_CONTENEDOR_MYSQL mysql -u USUARIO -p
+```
+
+si surge error ER_NOT_SUPPORTED_AUTH_MODE entrar al contenedor, entrar a mysql y ejecutar ⬇️
+``` sh
+ALTER USER 'ucoder' IDENTIFIED WITH mysql_native_password BY 'secret';
+flush privileges;
+```
 
 utilizo comandos de mysql
 
+``` sh
 SHOW DATABASES;
 
 USE NOMBRE_DE_LA_BASE_DE_DATOS;
@@ -42,6 +51,7 @@ USE NOMBRE_DE_LA_BASE_DE_DATOS;
 SHOW TABLES; 
 
 SHOW COLUMNS FROM nombre_de_la_tabla;
+```
 
 # Configuración para utilizar migraciones (clase 6)
 ```
