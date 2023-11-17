@@ -6,7 +6,7 @@ import { DeleteResult, UpdateResult } from "typeorm";
 export class UserController {
   constructor(
     public readonly userService: UserService = userServiceSingleton,
-    private readonly httpResponse: HttpResponse = new HttpResponse()
+    private readonly httpResponse: HttpResponse = new HttpResponse(),
   ) {}
 
   async get(req: Request, res: Response) {
@@ -40,7 +40,7 @@ export class UserController {
 
   async create(req: Request, res: Response) {
     try {
-      const data = await this.userService.createUser(req.body);
+      await this.userService.createUser(req.body);
       // return this.httpResponse.Ok(res, data);
       res.redirect("/user");
     } catch (e) {
@@ -57,7 +57,7 @@ export class UserController {
       res.render("user", { users, search: search });
     } catch (err) {
       res.render("message", {
-        message: `Error al buscar el usuario: ${search}`
+        message: `Error al buscar el usuario: ${search}`,
       });
     }
   }
@@ -69,12 +69,12 @@ export class UserController {
     try {
       const data: UpdateResult = await this.userService.updateUser(
         id,
-        req.body
+        req.body,
       );
       if (!data.affected) {
         return this.httpResponse.NotFound(res, "Error al actualizar");
       }
-      res.redirect('/user')
+      res.redirect("/user");
     } catch (e) {
       return this.httpResponse.Error(res, e);
     }
@@ -108,5 +108,4 @@ export class UserController {
       return this.httpResponse.Error(res, e);
     }
   }
-
 }

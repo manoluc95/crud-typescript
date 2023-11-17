@@ -19,11 +19,14 @@ class ServerBootstrap extends ConfigServer {
     super();
 
     // Middleware
-    this.app.use(session({  // Configuro el guardado de seción
-      secret: this.getEnvironment("SECRET") ?? "ASDFasdf1234",
-      resave: false,
-      saveUninitialized: false
-    }));
+    this.app.use(
+      session({
+        // Configuro el guardado de seción
+        secret: this.getEnvironment("SECRET") ?? "ASDFasdf1234",
+        resave: false,
+        saveUninitialized: false,
+      }),
+    );
     this.app.use(flash());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
@@ -32,11 +35,11 @@ class ServerBootstrap extends ConfigServer {
     this.app.use(passport.initialize());
     this.app.use(passport.session());
 
-    require('./config/passport')
+    require("./config/passport");
 
     this.app.use((req, res, next) => {
-      this.app.locals.message = req.flash('message');
-      this.app.locals.success = req.flash('success');
+      this.app.locals.message = req.flash("message");
+      this.app.locals.success = req.flash("success");
 
       this.app.locals.login_user = req.user;
       next();

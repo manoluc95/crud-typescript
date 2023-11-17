@@ -17,7 +17,7 @@ export class PurchaseEntity extends BaseEntity {
 
   @OneToMany(
     () => PurchaseProductEntity,
-    (purchaseProduct) => purchaseProduct.purchase
+    (purchaseProduct) => purchaseProduct.purchase,
   )
   purchaseProduct!: PurchaseProductEntity[];
 }

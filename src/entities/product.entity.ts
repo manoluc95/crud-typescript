@@ -20,7 +20,7 @@ export class ProductEntity extends BaseEntity {
 
   @OneToMany(
     () => PurchaseProductEntity,
-    (purchaseProduct) => purchaseProduct.product
+    (purchaseProduct) => purchaseProduct.product,
   )
   purchaseProduct!: PurchaseProductEntity[];
 }

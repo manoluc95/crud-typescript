@@ -1,4 +1,4 @@
-import {DataSource, DataSourceOptions, DeleteResult, UpdateResult} from "typeorm";
+import { DeleteResult, UpdateResult } from "typeorm";
 import { BaseService } from "../config/base.service";
 import { UserDTO } from "../dto/user.dto";
 import { UserEntity } from "../entities/user.entity";
@@ -16,7 +16,7 @@ export class UserService extends BaseService<UserEntity> {
   }
 
   async findUserById(id: string): Promise<UserEntity | null> {
-    return (await this.execRepository).findOneBy({ id });  
+    return (await this.execRepository).findOneBy({ id });
   }
 
   async search(search: string) {
@@ -33,7 +33,6 @@ export class UserService extends BaseService<UserEntity> {
       .getMany();
 
     return user;
-
   }
   async findByEmail(email: string): Promise<UserEntity | null> {
     return (await this.execRepository)
@@ -59,7 +58,7 @@ export class UserService extends BaseService<UserEntity> {
   async deleteUser(id: string): Promise<DeleteResult> {
     return (await this.execRepository).delete({ id });
   }
-  
+
   async updateUser(id: string, infoUpdate: UserDTO): Promise<UpdateResult> {
     return (await this.execRepository).update(id, infoUpdate);
   }
@@ -77,4 +76,4 @@ export class UserService extends BaseService<UserEntity> {
   }
 }
 
-export const userServiceSingleton = UserService.getInstance()
+export const userServiceSingleton = UserService.getInstance();

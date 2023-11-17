@@ -29,7 +29,7 @@ export class UserEntity extends BaseEntity {
   // @Column()
   // is_admin!: boolean;
 
-  @Column({type:"enum", enum: RoleType, nullable: false})
+  @Column({ type: "enum", enum: RoleType, nullable: false })
   role!: RoleType;
 
   @OneToOne(() => CustomerEntity, (customer) => customer.user)

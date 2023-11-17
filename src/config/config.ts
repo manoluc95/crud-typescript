@@ -1,5 +1,5 @@
 import * as dotenv from "dotenv";
-import {  DataSource  } from "typeorm";
+import { DataSource } from "typeorm";
 import { AppDataSource } from "./data.source";
 
 export abstract class ConfigServer {
@@ -23,7 +23,7 @@ export abstract class ConfigServer {
   }
 
   public createPathEnv(path: string): string {
-    const arrEnv: Array<string> = ["env"]; 
+    const arrEnv: Array<string> = ["env"];
 
     if (path.length > 0) {
       const stringToArray = path.split(".");
@@ -33,6 +33,6 @@ export abstract class ConfigServer {
   }
 
   get initConnect(): Promise<DataSource> {
-      return AppDataSource.initialize();
+    return AppDataSource.initialize();
   }
 }

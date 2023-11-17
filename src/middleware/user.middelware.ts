@@ -5,7 +5,7 @@ import { HttpResponse } from "../shared/response/http.response";
 
 export class UserMiddleware {
   constructor(
-    private readonly httpResponse: HttpResponse = new HttpResponse()
+    private readonly httpResponse: HttpResponse = new HttpResponse(),
   ) {}
   userValidator(req: Request, res: Response, next: NextFunction) {
     const { name, lastname, username, email, password, city, state, role } =
