@@ -27,8 +27,6 @@ export class Helpers {
 
   static async matchPassword(password: string, savedPassword: string){
     try {
-      // Realizamos la comparación de un str comun y uno encriptado
-      // Devolviendo un boolean
       return await bcrypt.compare(password, savedPassword);
     } catch (error) {
       console.log(error);

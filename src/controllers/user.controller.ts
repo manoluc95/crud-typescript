@@ -74,9 +74,7 @@ export class UserController {
       if (!data.affected) {
         return this.httpResponse.NotFound(res, "Error al actualizar");
       }
-      res.render("user/", {
-        search: false
-      });
+      res.redirect('/user')
     } catch (e) {
       return this.httpResponse.Error(res, e);
     }
