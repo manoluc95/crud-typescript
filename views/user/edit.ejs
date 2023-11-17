@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <%- include('../base/head'); %>
+</head>
+
+<body>
+    <%- include('../base/navegation', {variant:'user'}); %>
+
+  <br>
+  <div class="container">
+    <div class="text-center">
+      <h2>Usuario</h2>
+    </div>
+    <br>
+    <form action="/user/update" method="POST">
+      <input type="hidden" name="id" value="<%= user.id %>">
+        <!--   NOMBRE - APELLIDO   -->
+        <div class="row">
+        <div class="col-6">
+            <label for="name" class="form-label">Nombre</label>
+            <input type="text" name="name" id="name" class="form-control" value="<%= user.name %>">
+        </div>
+        <div class="col-6">
+            <label for="lastname" class="form-label">Apellido</label>
+            <input type="text" name="lastname" id="lastname" class="form-control" value="<%= user.lastname %>">
+        </div>
+      </div>
+      <br>
+        <!--   PASSWORD - USERNAME   -->
+        <div class="row">
+          <div class="col-lg-6 col-md-12">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" name="password" id="password" class="form-control" value="<%= user.email %>">
+          </div>
+          <div class="col-lg-6 col-md-12">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" name="username" id="username" class="form-control"  value="<%= user.username %>">
+          </div>
+
+      </div>
+      <br>
+        <!--   EMAIL - ROL   -->
+        <div class="row">
+          <div class="col-lg-6 col-md-12">
+              <label for="email" class="form-label">Email</label>
+              <input type="text" name="email" id="email" class="form-control" value="<%= user.email %>">
+          </div>
+          <div class="col-6">
+              <label for="role" class="form-label">Rol</label>
+              <select name="role" id="role" class="form-select">
+                  <option value="<%= user.role %>" selected>
+                      <%= user.role %> - SELECCIONADO
+                  </option>
+                  <option value="USER">USER</option>
+                  <option value="CUSTOMER">CUSTOMER</option>
+                  <option value="ADMIN">ADMIN</option>
+              </select >
+          </div>
+      </div>
+      <br>
+
+        <!--   CIUDAD - PROVINCIA   -->
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <label for="cidade" class="form-label">Ciudad</label>
+                <input type="text" name="city" id="city" class="form-control" value="<%= user.city %>">
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <label for="state" class="form-label">Provincia</label>
+                <select name="state" id="state" class="form-select">
+                    <option value="<%= user.state %>" selected>
+                        <%= user.state %> - SELECCIONADO
+                    </option>
+                    <option value="Buenos Aires">Buenos Aires</option>
+                    <option value="Buenos Aires Capital">Buenos Aires Capital</option>
+                    <option value="Catamarca">Catamarca</option>
+                    <option value="Chaco">Chaco</option>
+                    <option value="Chubut">Chubut</option>
+                    <option value="Cordoba">Cordoba</option>
+                    <option value="Corrientes">Corrientes</option>
+                    <option value="Entre Rios">Entre Rios</option>
+                    <option value="Formosa">Formosa</option>
+                    <option value="Jujuy">Jujuy</option>
+                    <option value="La Pampa">La Pampa</option>
+                    <option value="La Rioja">La Rioja</option>
+                    <option value="Mendoza">Mendoza</option>
+                    <option value="Misiones">Misiones</option>
+                    <option value="Neuquen">Neuquen</option>
+                    <option value="Rio Negro">Rio Negro</option>
+                    <option value="Salta">Salta</option>
+                    <option value="San Juan">San Juan</option>
+                    <option value="San Luis">San Luis</option>
+                    <option value="Santa Cruz">Santa Cruz</option>
+                    <option value="Santa Fe">Santa Fe</option>
+                    <option value="Santiago del Estero">Santiago del Estero</option>
+                    <option value="Tierra del Fuego">Tierra del Fuego</option>
+                    <option value="Tucuman">Tucuman</option>
+                </select>
+            </div>
+        </div>
+      <br>
+      <div class="row">
+        <div class="col-6">
+          <div class="float-start">
+            <button type="submit" class="btn primary-btn">Actualizar</button>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="float-end">
+            <a href=".." class="btn secondary-btn">Volver a Home</a>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+    <%- include('../base/footer'); %>
+
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/script.js"></script>
+    <script src="/js/single_script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <%- include('../base/head'); %>
+</head>
+
+<body>
+
+<%- include('../base/navegation', {variant:'user'}); %>
+
+<section class='container mt-5'>
+    <br>
+    <div class="row container" width="100vw">
+
+        <% if(search){ %>
+            <div class="text-center">
+                <h2>Busca por "<%= search %>"</h2>
+            </div>
+        <% } else{ %>
+            <div class="text-center">
+                <h2>Tabla de usuarios</h2>
+            </div>
+        <% } %>
+
+        <!-- Con table-responsive se crea un scroll en la tabla -->
+        <div class="table-responsive mt-3">
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                <th scope="col">Name</th>
+                <th scope="col">Lastname</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">City</th>
+                <th scope="col">Provincia</th>
+                <th scope="col">Rol</th>
+                <th scope="col">Creación</th>
+                <th scope="col">Actualización</th>
+                <th scope="col">Acción</th>
+                </thead>
+
+                <tbody>
+                <% users.forEach( function (user)  { %>
+                    <tr>
+
+                        <td>
+                            <%= user.name %>
+                        </td>
+                        <td>
+                            <%= user.lastname %>
+                        </td>
+                        <td>
+                            <%= user.username %>
+                        </td>
+                        <td>
+                            <%= user.email %>
+                        </td>
+                        <td>
+                            <%= user.city %>
+                        </td>
+                        <td>
+                            <%= user.state %>
+                        </td>
+                        <td>
+                            <%= user.role %>
+                        </td>
+                        <td>
+                            <%= user.createdAt.toLocaleDateString() %>
+                            <%= user.createdAt.toLocaleTimeString() %>
+                        </td>
+                        <td>
+                            <%= user.updatedAt.toLocaleDateString() %>
+                            <%= user.updatedAt.toLocaleTimeString() %>
+                        </td>
+                        <td>
+                            <div class="row">
+                                <div class="row">
+                                    <form action="/user/edit" method="GET">
+                                        <input type="hidden" name="id" value="<%= user.id %>">
+                                        <button type="submit" class="btn edit-btn"><i class="bi bi-pencil"></i></button>
+                                    </form>
+                                </div>
+                                <div class="row"></div>
+                                <div class="row">
+                                    <form action="/user/delete" method="POST">
+                                        <input type="hidden" name="id" value="<%= user.id %>">
+                                        <button type="submit" class="btn delete-btn"><i class="bi bi-trash"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                <% }) %>
+                </tbody>
+            </table>
+        </div>
+
+        <br>
+        <br>
+        <div class="float-start">
+            <a href="/user/add" class="btn btn-primary">Adicionar usuário</a>
+        </div>
+    </div>
+
+</section>
+
+<%- include('../base/footer'); %>
+
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/js/script.js"></script>
+<script src="/js/single_script.js"></script>
+</body>
+
+</html>
