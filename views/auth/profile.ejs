@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <%- include('../base/head'); %>
+</head>
+
+<body>
+
+    <%- include('../base/navegation', {variant:'user'}); %>
+
+    <div class="container p-4">
+
+        <%- include('../base/message'); %>
+        <div class="row">
+            <div class="col-md-4 mx-auto">
+
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h3>Bienvenido <%= login_user.fullname %> </h3>
+                        <h4> <%= login_user.username %></h4>
+                    
+                        <form action="./edit" method="GET">
+                            <input type="hidden" name="id" value="<%= login_user.id %>">
+                            <button type="submit" class="btn btn-primary m-4">Modifica tu perfil</button>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <%- include('../base/footer'); %>
+
+    <!-- Vendor JS Files -->
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+</body>
+
+</html>
